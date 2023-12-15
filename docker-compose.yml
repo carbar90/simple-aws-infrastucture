@@ -10,6 +10,8 @@ services:
       - AWS_DEFAULT_REGION=us-east-1
       - SERVICES=lambda,s3,iam,cloudwatch,sts  # Specify services you want to emulate (e.g., lambda)
       - DEBUG=1  # Enable debug mode (optional)
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- docker-reuse}
+      - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - "${TEMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "${TMPDIR:-/tmp}/localstack:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
