@@ -2,15 +2,14 @@
 version: '3.1'
 
 services:
-
   localstack:
     image: localstack/localstack:latest
+    ports:
+      - "4566-4599:4566-4599"  # Expose required LocalStack ports
     environment:
       - AWS_DEFAULT_REGION=us-east-1
-      - EDGE_PORT=4566
-      - SERVICES=lambda,s3
-    ports:
-      - '4566-4583:4566-4583'
+      - SERVICES=lambda,s3,iam,cloudwatch,sts  # Specify services you want to emulate (e.g., lambda)
+      - DEBUG=1  # Enable debug mode (optional)
     volumes:
       - "${TEMPDIR:-/tmp/localstack}:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
